@@ -1,5 +1,7 @@
 name: my-workflow
-on: push
+on: 
+  push:
+    branches: deploy
 jobs:
   build:
     runs-on: ubuntu-latest
