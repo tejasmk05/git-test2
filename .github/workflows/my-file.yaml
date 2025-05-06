@@ -24,4 +24,4 @@ jobs:
           node-version: 20
       - run: npm ci
       - name: run project
-        run: npm run buuild
+        run: npm run build
