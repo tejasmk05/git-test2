@@ -16,7 +16,7 @@ jobs:
         uses: actions/upload-artifacts@v4
         with:
           name: my-files
-          path: **/*
+          path: '**/*'
       - run: npm ci
       - run: npm test
   deploy:
