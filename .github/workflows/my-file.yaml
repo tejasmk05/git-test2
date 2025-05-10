@@ -12,12 +12,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Using Cache
+        id: mycache
+        uses: actions/cache@v4
         with:
-          name: my-files
-          path: '**/*'
-      - run: npm ci
+          path: my-cache
+          key: ${{hashFiles('**/package-lock.json')}} 
+      - name: Install dependency
+        if: steps.mycache.outputs.cache-hit != true
+        run: npm ci
       - run: npm test
   deploy:
     needs:  build
@@ -29,6 +32,14 @@ jobs:
         uses: actions/setup-node@v4
         with: 
           node-version: 20
-      - run: npm ci
+      - name: Using Cache
+        id: mycache
+        uses: actions/cache@v4
+        with:
+          path: my-cache
+          key: ${{hashFiles('**/package-lock.json')}}
+      - name: Install Dependency
+        if: steps.mycache.outputs.cache-hit != true
+        run: npm ci
       - name: run project
         run: npm run build
