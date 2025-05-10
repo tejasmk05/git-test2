@@ -19,7 +19,7 @@ jobs:
           path: ~/.npm
           key: my-cache-${{hashFiles('**/package-lock.json')}} 
       - name: Install dependency
-        if: steps.mycache.outputs.cache-hit != true
+        if: steps.mycache.outputs.cache-hit != 'true'
         run: npm ci
       - run: npm test
   deploy:
@@ -39,7 +39,7 @@ jobs:
           path: ~/.npm
           key: my-cache-${{hashFiles('**/package-lock.json')}}
       - name: Install Dependency
-        if: steps.mycache.outputs.cache-hit != true
+        if: steps.mycache.outputs.cache-hit != 'true'
         run: npm ci
       - name: run project
         run: npm run build
